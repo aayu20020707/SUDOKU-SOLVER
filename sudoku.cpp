@@ -12,13 +12,13 @@ int grid[N][N] = {
    {0, 0, 0, 0, 0, 0, 0, 7, 4},
    {0, 0, 5, 2, 0, 6, 3, 0, 0}
 };
-bool isPresentInCol(int col, int num){ //check whether num is present in col or not
+bool isPresentInCol(int col, int num){ //this function will check whether num is present in col or not
    for (int row = 0; row < N; row++)
       if (grid[row][col] == num)
          return true;
    return false;
 }
-bool isPresentInRow(int row, int num){ //check whether num is present in row or not
+bool isPresentInRow(int row, int num){ //this function check whether num is present in row or not
    for (int col = 0; col < N; col++)
       if (grid[row][col] == num)
          return true;
@@ -32,7 +32,7 @@ bool isPresentInBox(int boxStartRow, int boxStartCol, int num){
             return true;
    return false;
 }
-void sudokuGrid(){ //print the sudoku grid after solve
+void sudokuGrid(){ //now we will print the sudoku grid 
    for (int row = 0; row < N; row++){
       for (int col = 0; col < N; col++){
          if(col == 3 || col == 6)
@@ -59,14 +59,14 @@ bool isValidPlace(int row, int col, int num){
    return !isPresentInRow(row, num) && !isPresentInCol(col, num) && !isPresentInBox(row - row%3 ,
 col - col%3, num);
 }
-bool solveSudoku(){
+bool sudokusolver(){
    int row, col;
    if (!findEmptyPlace(row, col))
       return true; //when all places are filled
    for (int num = 1; num <= 9; num++){ //valid numbers are 1 - 9
       if (isValidPlace(row, col, num)){ //check validation, if yes, put the number in the grid
          grid[row][col] = num;
-         if (solveSudoku()) //recursively go for other rooms in the grid
+         if (sudokusolver()) //recursively go for other rooms in the grid
             return true;
          grid[row][col] = 0; //turn to unassigned space when conditions are not satisfied
       }
@@ -74,7 +74,7 @@ bool solveSudoku(){
    return false;
 }
 int main(){
-   if (solveSudoku() == true)
+   if (sudokusolver() == true)
       sudokuGrid();
    else
       cout << "No solution exists";}
